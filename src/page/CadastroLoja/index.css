@@ -1,0 +1,125 @@
+.cadastro-loja-container {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+}
+
+.cadastro-loja-card {
+  width: 100%;
+  max-width: 500px;
+
+  background-color: #ffffff;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+
+  padding: 32px;
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.cadastro-loja-cabecalho {
+  text-align: center;
+
+  margin-bottom: 32px;
+}
+
+.cadastro-loja-icone {
+  display: block;
+
+  font-size: 48px;
+
+  margin-bottom: 16px;
+}
+
+.cadastro-loja-cabecalho h1 {
+  font-size: 28px;
+
+  margin-bottom: 8px;
+}
+
+.cadastro-loja-cabecalho p {
+  color: #6b7280;
+
+  line-height: 1.5;
+}
+
+
+/* CAMPOS */
+
+.campo {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 8px;
+
+  margin-bottom: 20px;
+}
+
+.campo label span {
+  color: #9ca3af;
+  font-weight: 400;
+}
+
+.campo input {
+  width: 100%;
+
+  padding: 13px 14px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+
+  outline: none;
+}
+
+.campo input:focus {
+  border-color: #111827;
+}
+
+
+/* BOTÃO */
+
+.btn-criar-loja {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+
+  padding: 14px;
+
+  background-color: #111827;
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s;
+}
+
+.btn-criar-loja:hover {
+  background-color: #1f2937;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 600px) {
+  .cadastro-loja-container {
+    padding: 16px;
+  }
+
+  .cadastro-loja-card {
+    padding: 24px 20px;
+  }
+}

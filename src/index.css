@@ -1,0 +1,40 @@
+/* ==============================
+   RESET GLOBAL
+   ============================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+/* ==============================
+   CONFIGURAÇÕES GERAIS
+   ============================== */
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f5f7fa;
+  color: #1f2937;
+}
+
+
+/* ==============================
+   ELEMENTOS GERAIS
+   ============================== */
+
+button {
+  font-family: inherit;
+}
+
+button,
+a {
+  cursor: pointer;
+}

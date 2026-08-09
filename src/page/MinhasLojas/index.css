@@ -1,0 +1,112 @@
+.minhas-lojas {
+  min-height: 100vh;
+  padding: 32px 24px;
+}
+
+.minhas-lojas-header {
+  max-width: 1000px;
+  margin: 0 auto 32px;
+}
+
+.minhas-lojas-header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.minhas-lojas-header p {
+  color: #6b7280;
+}
+
+/* LISTA */
+.lista-lojas {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* CARD */
+.card-loja {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.card-loja img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.informacoes-loja {
+  flex: 1;
+}
+
+.informacoes-loja h2 {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.informacoes-loja p {
+  color: #6b7280;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+/* BOTÃO */
+
+.card-loja button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background-color: #111827;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* NOVA LOJA */
+
+.btn-nova-loja {
+  border: 2px dashed #d1d5db;
+  border-radius: 16px;
+  padding: 24px;
+  background-color: transparent;
+  color: #374151;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+  .minhas-lojas {
+    padding: 24px 16px;
+  }
+
+  .lista-lojas {
+    grid-template-columns: 1fr;
+  }
+
+  .card-loja {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  .card-loja img {
+    margin: 0 auto;
+  }
+
+  .card-loja button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,274 @@
+/* ==============================
+   RESET DO COMPONENTE
+   ============================== */
+
+.veiculo {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* ==============================
+   CABEÇALHO
+   ============================== */
+
+.header {
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  margin: 0 0 8px;
+  font-size: 32px;
+  color: #222;
+}
+
+.header p {
+  margin: 0;
+  color: #666;
+  font-size: 16px;
+}
+
+/* ==============================
+   FORMULÁRIO
+   ============================== */
+
+.form-veiculo {
+  width: 100%;
+  background: #ffffff;
+
+  padding: 30px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 20px;
+
+  box-sizing: border-box;
+}
+
+/* ==============================
+   CAMPOS
+   ============================== */
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.campo label,
+.campo-observacoes label {
+  font-weight: 600;
+  color: #222;
+}
+
+.campo label span,
+.campo-observacoes label span {
+  font-weight: 400;
+  color: #777;
+  font-size: 14px;
+}
+
+/* ==============================
+   INPUTS E SELECT
+   ============================== */
+
+.campo input,
+.campo select,
+.campo-observacoes textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 12px 14px;
+
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-family: inherit;
+
+  outline: none;
+
+  background: #ffffff;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* ==============================
+   PLACEHOLDER
+   ============================== */
+
+.campo input::placeholder,
+.campo-observacoes textarea::placeholder {
+  color: #999;
+}
+
+/* ==============================
+   FOCO
+   ============================== */
+
+.campo input:focus,
+.campo select:focus,
+.campo-observacoes textarea:focus {
+  border-color: #1d4ed8;
+
+  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+}
+
+/* ==============================
+   OBSERVAÇÕES
+   ============================== */
+
+.campo-observacoes {
+  grid-column: 1 / -1;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 8px;
+}
+
+.campo-observacoes textarea {
+  min-height: 120px;
+
+  resize: vertical;
+}
+
+/* ==============================
+   AÇÕES
+   ============================== */
+
+.acoes {
+  grid-column: 1 / -1;
+
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 10px;
+}
+
+/* ==============================
+   BOTÕES
+   ============================== */
+
+.btn-cadastrar,
+.btn-voltar {
+  border: none;
+
+  border-radius: 8px;
+
+  padding: 13px 22px;
+
+  font-size: 15px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.1s ease;
+}
+
+/* ==============================
+   BOTÃO CADASTRAR
+   ============================== */
+
+.btn-cadastrar {
+  background: #1d4ed8;
+
+  color: #ffffff;
+}
+
+.btn-cadastrar:hover {
+  background: #1741b5;
+}
+
+.btn-cadastrar:active {
+  transform: scale(0.98);
+}
+
+/* ==============================
+   BOTÃO VOLTAR
+   ============================== */
+
+.btn-voltar {
+  background: #eeeeee;
+
+  color: #222222;
+}
+
+.btn-voltar:hover {
+  background: #dddddd;
+}
+
+.btn-voltar:active {
+  transform: scale(0.98);
+}
+
+/* ==============================
+   RESPONSIVIDADE
+   ============================== */
+
+@media (max-width: 700px) {
+  .veiculo {
+    padding: 25px 15px;
+  }
+
+  .header h1 {
+    font-size: 26px;
+  }
+
+  .form-veiculo {
+    grid-template-columns: 1fr;
+
+    padding: 20px;
+  }
+
+  .campo-observacoes,
+  .acoes {
+    grid-column: 1;
+  }
+
+  .acoes {
+    flex-direction: column;
+  }
+
+  .btn-cadastrar,
+  .btn-voltar {
+    width: 100%;
+  }
+}
+
+/* ==============================
+   TELAS MUITO PEQUENAS
+   ============================== */
+
+@media (max-width: 400px) {
+  .veiculo {
+    padding: 20px 10px;
+  }
+
+  .form-veiculo {
+    padding: 16px;
+
+    border-radius: 12px;
+  }
+
+  .header h1 {
+    font-size: 23px;
+  }
+
+  .header p {
+    font-size: 14px;
+  }
+}

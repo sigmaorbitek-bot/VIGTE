@@ -1,0 +1,139 @@
+/* ==============================
+   TELA DE SELEÇÃO DE USUÁRIO
+   ============================== */
+
+   .logo-vigte {
+  width: 280px;
+  max-width: 80%;
+  height: auto;
+  display: block;
+  margin: 0 auto 20px;
+}
+
+.usuario-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    text-align: center;
+}
+
+/* ==============================
+   CABEÇALHO
+   ============================== */
+
+.usuario-container h1 {
+    font-size: 42px;
+    margin-bottom: 8px;
+}
+
+.usuario-container>p {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 40px;
+}
+
+/* ==============================
+   CARDS DE OPÇÃO
+   ============================== */
+
+.selecao-grid {
+    width: 100%;
+    max-width: 800px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.card-opcao {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 32px 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.card-opcao:hover {
+    transform: translateY(-4px);
+     border-color: #da180a;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* ==============================
+   ÍCONE
+   ============================== */
+
+.icone-opcao {
+    font-size: 48px;
+    margin-bottom: 16px;
+}
+
+/* ==============================
+   TEXTO DOS CARDS
+   ============================== */
+
+.card-opcao h2 {
+    font-size: 22px;
+    margin-bottom: 12px;
+}
+
+.card-opcao p {
+    color: #6b7280;
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+/* ==============================
+   BOTÃO
+   ============================== */
+
+.btn-opcao {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 16px;
+    background-color: #1448b9;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-opcao:hover {
+    background-color: #1f2937;
+}
+
+/* ==============================
+   RESPONSIVIDADE
+   ============================== */
+
+@media (max-width: 650px) {
+    .usuario-container {
+        padding: 20px;
+    }
+
+    .usuario-container h1 {
+        font-size: 34px;
+    }
+
+    .usuario-container>p {
+        margin-bottom: 28px;
+    }
+
+    .selecao-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .card-opcao {
+        padding: 24px 20px;
+    }
+}
