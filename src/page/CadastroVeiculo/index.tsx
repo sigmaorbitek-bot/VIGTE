@@ -1,21 +1,7 @@
 import "./index.css";
 import { useState } from "react";
+import type { Veiculo } from "../../types/Veiculo";
 
-type Veiculo = {
-  id: number;
-  lojaId: number;
-  tipo: string;
-  marca: string;
-  modelo: string;
-  ano: string;
-  cor: string;
-  placa: string;
-  quilometragem: string;
-  valorCompra: string;
-  precoVenda: string;
-  dataCompra: string;
-  observacoes: string;
-};
 
 type CadastroVeiculoProps = {
   lojaId: number;
@@ -36,29 +22,33 @@ export function CadastrarVeiculo({
   const [placa, setPlaca] = useState("");
   const [quilometragem, setQuilometragem] = useState("");
   const [valorCompra, setValorCompra] = useState("");
-  const [precoVenda, setPrecoVenda] = useState("");
+  const [situacao, setSituacao] = useState("");
   const [dataCompra, setDataCompra] = useState("");
   const [observacoes, setObservacoes] = useState("");
 
-  function cadastrarVeiculo() {
-    const novoVeiculo: Veiculo = {
-      id: Date.now(),
-      lojaId,
-      tipo,
-      marca,
-      modelo,
-      ano,
-      cor,
-      placa,
-      quilometragem,
-      valorCompra,
-      precoVenda,
-      dataCompra,
-      observacoes,
-    };
+function cadastrarVeiculo() {
+  const novoVeiculo: Veiculo = {
+    id: Date.now(),
+    lojaId,
+    tipo,
+    marca,
+    modelo,
+    ano,
+    cor,
+    placa,
+    quilometragem,
+    valorCompra,
+    situacao,
+    dataCompra,
+    observacoes,
+  };
 
-    onCadastrarVeiculo(novoVeiculo);
-  }
+  console.log("1 - VEÍCULO CRIADO:", novoVeiculo);
+
+  onCadastrarVeiculo(novoVeiculo);
+
+  console.log("2 - FUNÇÃO onCadastrarVeiculo FOI CHAMADA");
+}
 
   return (
     <div className="veiculo">
@@ -80,6 +70,21 @@ export function CadastrarVeiculo({
             <option value="">Selecione</option>
             <option value="carro">Carro</option>
             <option value="moto">Moto</option>
+          </select>
+        </div>
+
+        <div className="campo">
+          <label htmlFor="situacao">Situação da documentação</label>
+
+          <select
+            id="situacao"
+            value={situacao}
+            onChange={(evento) => setSituacao(evento.target.value)}
+          >
+            <option value="">Selecione</option>
+            <option value="emdia">Em dia</option>
+            <option value="atrasada">Atrasada</option>
+            <option value="leilao">Leilão</option>
           </select>
         </div>
 
@@ -168,18 +173,6 @@ export function CadastrarVeiculo({
             placeholder="R$ 0,00"
             value={valorCompra}
             onChange={(evento) => setValorCompra(evento.target.value)}
-          />
-        </div>
-
-        <div className="campo">
-          <label htmlFor="precovenda">Preço de venda estimado</label>
-
-          <input
-            id="precovenda"
-            type="number"
-            placeholder="R$ 0,00"
-            value={precoVenda}
-            onChange={(evento) => setPrecoVenda(evento.target.value)}
           />
         </div>
 

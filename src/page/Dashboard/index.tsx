@@ -1,20 +1,5 @@
 import "./index.css";
-
-type Veiculo = {
-  id: number;
-  lojaId: number;
-  tipo: string;
-  marca: string;
-  modelo: string;
-  ano: string;
-  cor: string;
-  placa: string;
-  quilometragem: string;
-  valorCompra: string;
-  precoVenda: string;
-  dataCompra: string;
-  observacoes: string;
-};
+import type { Veiculo } from "../../types/Veiculo";
 
 type DashboardProps = {
   nomeDaLoja: string;
@@ -31,13 +16,6 @@ export function Dashboard({
 }: DashboardProps) {
   const dinheiroInvestido = veiculos.reduce(
     (total, veiculo) => total + Number(veiculo.valorCompra || 0),
-    0,
-  );
-
-  const lucroEstimado = veiculos.reduce(
-    (total, veiculo) =>
-      total +
-      (Number(veiculo.precoVenda || 0) - Number(veiculo.valorCompra || 0)),
     0,
   );
 
@@ -76,7 +54,7 @@ export function Dashboard({
             <div>
               <p>Lucro estimado</p>
 
-              <strong>R$ {lucroEstimado.toFixed(2)}</strong>
+              <strong>R$ 0,00</strong>
             </div>
           </div>
         </section>
@@ -141,14 +119,13 @@ export function Dashboard({
                     </p>
 
                     <p>
-                      <strong>Venda estimada:</strong> R$ {veiculo.precoVenda}
+                      <strong>Data de compra:</strong> {veiculo.dataCompra}
                     </p>
 
                     <p>
-                      <strong>Data de compra:</strong> {veiculo.dataCompra}
+                      <strong>Documentação:</strong> {veiculo.situacao}
                     </p>
                   </div>
-
                   {veiculo.observacoes && (
                     <div className="observacao-veiculo">
                       <strong>Observações:</strong>
