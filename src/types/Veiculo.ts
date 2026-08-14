@@ -19,5 +19,5 @@ export type Veiculo = {
 
   observacoes: string;
 
-  foto: string;
+  foto?: string; // <-- O '?' torna o campo opcional
 };

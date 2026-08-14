@@ -101,6 +101,7 @@ export function CadastrarVeiculo({
       situacao: data.situacao,
       dataCompra: data.data_compra,
       observacoes: data.observacoes ?? "",
+      foto: data.foto ?? undefined, // <-- Propriedade foto repassada aqui
     };
 
     onCadastrarVeiculo(novoVeiculo);
