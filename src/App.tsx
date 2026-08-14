@@ -201,13 +201,16 @@ function App() {
       dataCompra: veiculo.data_compra,
       observacoes:
         veiculo.observacoes ?? "",
+
+      // IMPORTANTE:
+      // agora a foto também vem do banco.
+      foto: veiculo.foto ?? "",
     }));
 
-    setListaVeiculos(veiculosConvertidos);
+    setListaVeiculos(
+      veiculosConvertidos,
+    );
 
-    // IMPORTANTÍSSIMO:
-    // agora a função devolve os veículos
-    // para quem chamou.
     return veiculosConvertidos;
   }
 
@@ -218,8 +221,6 @@ function App() {
   async function buscarGastos(
     veiculoIds: number[],
   ): Promise<Gasto[]> {
-    // Se não existem veículos,
-    // não existem gastos para buscar.
     if (veiculoIds.length === 0) {
       setListaGastos([]);
 
@@ -261,7 +262,9 @@ function App() {
       dataGasto: gasto.data_gasto,
     }));
 
-    setListaGastos(gastosConvertidos);
+    setListaGastos(
+      gastosConvertidos,
+    );
 
     return gastosConvertidos;
   }
@@ -273,11 +276,9 @@ function App() {
   async function carregarDadosDaLoja(
     lojaId: number,
   ) {
-    // Primeiro buscamos os veículos.
     const veiculos =
       await buscarVeiculos(lojaId);
 
-    // Depois buscamos os gastos desses veículos.
     await buscarGastos(
       veiculos.map(
         (veiculo) => veiculo.id,
@@ -303,18 +304,86 @@ function App() {
     nomeDaLoja: string;
     whatsApp: string;
     cidade: string;
+    logo: File | null;
   }) {
-    const { data, error } = await supabase
-      .from("lojas")
-      .insert([
-        {
-          nome_da_loja: loja.nomeDaLoja,
-          whatsapp: loja.whatsApp,
-          cidade: loja.cidade,
-          logo: logoPadrao,
-        },
-      ])
-      .select();
+    // ========================================================
+    // LOGO PADRÃO
+    // ========================================================
+
+    let logoUrl = logoPadrao;
+
+    // ========================================================
+    // ENVIO DA LOGO PARA O STORAGE
+    // ========================================================
+
+    if (loja.logo) {
+      const extensao =
+        loja.logo.name.split(".").pop() || "png";
+
+      const nomeArquivo =
+        `${crypto.randomUUID()}.${extensao}`;
+
+      const { error: uploadError } =
+        await supabase.storage
+          .from("logos-lojas")
+          .upload(
+            nomeArquivo,
+            loja.logo,
+            {
+              cacheControl: "3600",
+              upsert: false,
+            },
+          );
+
+      if (uploadError) {
+        console.error(
+          "Erro ao enviar logo:",
+          uploadError,
+        );
+
+        alert(
+          "Não foi possível enviar a logo da loja.",
+        );
+
+        return;
+      }
+
+      // ======================================================
+      // GERAR URL PÚBLICA
+      // ======================================================
+
+      const { data: urlData } =
+        supabase.storage
+          .from("logos-lojas")
+          .getPublicUrl(
+            nomeArquivo,
+          );
+
+      logoUrl = urlData.publicUrl;
+    }
+
+    // ========================================================
+    // INSERIR LOJA NO BANCO
+    // ========================================================
+
+    const { data, error } =
+      await supabase
+        .from("lojas")
+        .insert([
+          {
+            nome_da_loja:
+              loja.nomeDaLoja,
+
+            whatsapp:
+              loja.whatsApp,
+
+            cidade:
+              loja.cidade,
+
+            logo: logoUrl,
+          },
+        ])
+        .select();
 
     if (error) {
       console.error(
@@ -329,7 +398,10 @@ function App() {
       return;
     }
 
-    if (!data || data.length === 0) {
+    if (
+      !data ||
+      data.length === 0
+    ) {
       console.error(
         "A loja foi enviada, mas nenhum dado foi retornado.",
       );
@@ -341,14 +413,28 @@ function App() {
       return;
     }
 
+    // ========================================================
+    // CONVERTER LOJA PARA O FORMATO DO REACT
+    // ========================================================
+
     const lojaCriada: Loja = {
       id: data[0].id,
+
       logo: data[0].logo,
+
       nomeDaLoja:
         data[0].nome_da_loja,
-      whatsApp: data[0].whatsapp,
-      cidade: data[0].cidade,
+
+      whatsApp:
+        data[0].whatsapp,
+
+      cidade:
+        data[0].cidade,
     };
+
+    // ========================================================
+    // ATUALIZAR LISTA DE LOJAS
+    // ========================================================
 
     setListaLojas(
       (listaAtual) => [
@@ -367,15 +453,12 @@ function App() {
   async function entrarNaLoja(
     loja: Loja,
   ) {
-    // Guarda a loja selecionada.
     setLojaSelecionada(loja);
 
-    // Carrega veículos + gastos.
     await carregarDadosDaLoja(
       loja.id,
     );
 
-    // Abre o Dashboard.
     setTela("dashboard");
   }
 
@@ -433,7 +516,9 @@ function App() {
     if (tela === "cadastro") {
       return (
         <CadastroLoja
-          onCriarLoja={criarLoja}
+          onCriarLoja={
+            criarLoja
+          }
         />
       );
     }
@@ -507,8 +592,6 @@ function App() {
           onCadastrarVeiculo={async (
             veiculo,
           ) => {
-            // Atualiza veículos + gastos
-            // depois do cadastro.
             await carregarDadosDaLoja(
               veiculo.lojaId,
             );
@@ -544,10 +627,6 @@ function App() {
             veiculoSelecionado
           }
           onSalvarGasto={async () => {
-            // Depois de salvar o gasto,
-            // buscamos novamente os dados
-            // da loja.
-
             if (
               !lojaSelecionada
             ) {
@@ -562,12 +641,10 @@ function App() {
               lojaSelecionada.id,
             );
 
-            // Limpa o veículo selecionado.
             setVeiculoSelecionado(
               null,
             );
 
-            // Volta para o Dashboard.
             setTela("dashboard");
           }}
           onVoltar={() => {

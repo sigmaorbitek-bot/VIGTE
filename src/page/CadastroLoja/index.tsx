@@ -6,20 +6,19 @@ type CadastroLojaProps = {
     nomeDaLoja: string;
     whatsApp: string;
     cidade: string;
+    logo: File | null;
   }) => void;
 };
 
 export function CadastroLoja({
   onCriarLoja,
 }: CadastroLojaProps) {
-  const [nomeDaLoja, setNomeDaLoja] =
-    useState("");
+  const [nomeDaLoja, setNomeDaLoja] = useState("");
+  const [whatsApp, setWhatsApp] = useState("");
+  const [cidade, setCidade] = useState("");
 
-  const [whatsApp, setWhatsApp] =
-    useState("");
-
-  const [cidade, setCidade] =
-    useState("");
+  // Guarda a imagem escolhida pelo usuário.
+  const [logo, setLogo] = useState<File | null>(null);
 
   // ==========================================================
   // CRIAR LOJA
@@ -45,6 +44,7 @@ export function CadastroLoja({
       nomeDaLoja: nomeDaLoja.trim(),
       whatsApp: whatsApp.trim(),
       cidade: cidade.trim(),
+      logo,
     };
 
     onCriarLoja(novaLoja);
@@ -67,7 +67,7 @@ export function CadastroLoja({
 
           <p>
             Cadastre sua loja para começar a
-            gerenciar seus Veiculos.
+            gerenciar seus veículos.
           </p>
         </div>
 
@@ -95,6 +95,12 @@ export function CadastroLoja({
               id="logoLoja"
               type="file"
               accept="image/*"
+              onChange={(evento) => {
+                const arquivo =
+                  evento.target.files?.[0] ?? null;
+
+                setLogo(arquivo);
+              }}
             />
           </div>
 
@@ -113,9 +119,7 @@ export function CadastroLoja({
               placeholder="Ex: Sigma Orbitek Veículos"
               value={nomeDaLoja}
               onChange={(evento) =>
-                setNomeDaLoja(
-                  evento.target.value,
-                )
+                setNomeDaLoja(evento.target.value)
               }
             />
           </div>
@@ -135,9 +139,7 @@ export function CadastroLoja({
               placeholder="(00) 00000-0000"
               value={whatsApp}
               onChange={(evento) =>
-                setWhatsApp(
-                  evento.target.value,
-                )
+                setWhatsApp(evento.target.value)
               }
             />
           </div>
@@ -157,9 +159,7 @@ export function CadastroLoja({
               placeholder="Ex: Altinho - PE"
               value={cidade}
               onChange={(evento) =>
-                setCidade(
-                  evento.target.value,
-                )
+                setCidade(evento.target.value)
               }
             />
           </div>

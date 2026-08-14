@@ -67,6 +67,7 @@ export function Dashboard({
   return (
     <div className="dashboard">
       <main className="dashboard-container">
+
         {/* ==================================================
             CABEÇALHO
         ================================================== */}
@@ -199,24 +200,36 @@ export function Dashboard({
                 // VALOR DE COMPRA
                 // ==================================================
 
-                const valorCompra =
-                  Number(
-                    veiculo.valorCompra || 0,
-                  );
+                const valorCompra = Number(
+                  veiculo.valorCompra || 0,
+                );
 
                 // ==================================================
                 // CUSTO REAL
                 // ==================================================
 
                 const custoReal =
-                  valorCompra +
-                  totalGastosVeiculo;
+                  valorCompra + totalGastosVeiculo;
 
                 return (
                   <article
                     className="card-veiculo"
                     key={veiculo.id}
                   >
+
+                    {/* ==========================================
+                        FOTO
+                    ========================================== */}
+
+                    {veiculo.foto && (
+                      <div className="foto-veiculo">
+                        <img
+                          src={veiculo.foto}
+                          alt={`${veiculo.marca} ${veiculo.modelo}`}
+                        />
+                      </div>
+                    )}
+
                     {/* ==========================================
                         TOPO
                     ========================================== */}
@@ -267,8 +280,8 @@ export function Dashboard({
                       )}
 
                       <p>
-                        <strong>Compra:</strong> R${" "}
-                        {valorCompra.toFixed(2)}
+                        <strong>Compra:</strong>{" "}
+                        R$ {valorCompra.toFixed(2)}
                       </p>
 
                       <p>
@@ -373,13 +386,10 @@ export function Dashboard({
                     ========================================== */}
 
                     <div className="custo-real">
-                      <span>
-                        Custo real
-                      </span>
+                      <span>Custo real</span>
 
                       <strong>
-                        R${" "}
-                        {custoReal.toFixed(2)}
+                        R$ {custoReal.toFixed(2)}
                       </strong>
                     </div>
 
@@ -392,9 +402,7 @@ export function Dashboard({
                         type="button"
                         className="btn-gasto"
                         onClick={() =>
-                          onAdicionarGasto(
-                            veiculo,
-                          )
+                          onAdicionarGasto(veiculo)
                         }
                       >
                         + Adicionar gasto

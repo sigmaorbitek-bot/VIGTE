@@ -11,7 +11,6 @@
    #AEBBD0 → Texto secundário
    ========================================================== */
 
-
 /* ==========================================================
    DASHBOARD
    ========================================================== */
@@ -23,20 +22,14 @@
   background:
     radial-gradient(
       circle at top right,
-      rgba(0, 198, 255, 0.10),
+      rgba(0, 198, 255, 0.1),
       transparent 30%
     ),
-    linear-gradient(
-      135deg,
-      #050B16 0%,
-      #081426 55%,
-      #0B1F3A 100%
-    );
+    linear-gradient(135deg, #050b16 0%, #081426 55%, #0b1f3a 100%);
 
-  color: #FFFFFF;
+  color: #ffffff;
   box-sizing: border-box;
 }
-
 
 /* ==========================================================
    CONTAINER
@@ -47,7 +40,6 @@
   max-width: 1200px;
   margin: 0 auto;
 }
-
 
 /* ==========================================================
    CABEÇALHO
@@ -63,17 +55,16 @@
   font-size: 32px;
   font-weight: 700;
 
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .dashboard-header p {
   margin: 8px 0 0;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 15px;
 }
-
 
 /* ==========================================================
    RESUMO
@@ -88,7 +79,6 @@
 
   margin-bottom: 30px;
 }
-
 
 /* ==========================================================
    CARDS DO RESUMO
@@ -106,19 +96,17 @@
 
   box-sizing: border-box;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(11, 31, 58, 0.95),
-      rgba(8, 20, 38, 0.95)
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(11, 31, 58, 0.95),
+    rgba(8, 20, 38, 0.95)
+  );
 
   border: 1px solid rgba(0, 174, 255, 0.18);
 
   border-radius: 16px;
 
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
 
   transition:
     transform 0.2s ease,
@@ -131,10 +119,36 @@
 
   border-color: rgba(0, 198, 255, 0.35);
 
-  box-shadow:
-    0 16px 35px rgba(0, 0, 0, 0.32);
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.32);
 }
 
+/* ==========================================================
+   FOTO DO VEÍCULO
+   ========================================================== */
+
+.foto-veiculo {
+  width: 100%;
+  height: 220px;
+
+  margin-bottom: 20px;
+
+  overflow: hidden;
+
+  border-radius: 14px;
+
+  background: #050b16;
+
+  border: 1px solid rgba(0, 198, 255, 0.14);
+}
+
+.foto-veiculo img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+}
 
 /* ==========================================================
    ÍCONE DO RESUMO
@@ -157,7 +171,6 @@
   font-size: 26px;
 }
 
-
 /* ==========================================================
    TEXTO DOS CARDS
    ========================================================== */
@@ -165,18 +178,17 @@
 .resumo .card p {
   margin: 0 0 7px;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 13px;
 }
 
 .resumo .card strong {
-  color: #FFFFFF;
+  color: #ffffff;
 
   font-size: 20px;
   font-weight: 700;
 }
-
 
 /* ==========================================================
    AÇÕES DO DASHBOARD
@@ -191,7 +203,6 @@
   margin-bottom: 35px;
 }
 
-
 /* ==========================================================
    BOTÃO CADASTRAR VEÍCULO
    ========================================================== */
@@ -204,22 +215,16 @@
 
   border-radius: 14px;
 
-  background:
-    linear-gradient(
-      135deg,
-      #008CFF,
-      #00C6FF
-    );
+  background: linear-gradient(135deg, #008cff, #00c6ff);
 
-  color: #FFFFFF;
+  color: #ffffff;
 
   font-size: 16px;
   font-weight: 700;
 
   cursor: pointer;
 
-  box-shadow:
-    0 10px 25px rgba(0, 140, 255, 0.20);
+  box-shadow: 0 10px 25px rgba(0, 140, 255, 0.2);
 
   transition:
     transform 0.2s ease,
@@ -232,14 +237,12 @@
 
   filter: brightness(1.08);
 
-  box-shadow:
-    0 14px 30px rgba(0, 198, 255, 0.25);
+  box-shadow: 0 14px 30px rgba(0, 198, 255, 0.25);
 }
 
 .btn-veiculo:active {
   transform: translateY(0);
 }
-
 
 /* ==========================================================
    BOTÃO VOLTAR
@@ -256,7 +259,7 @@
 
   background: #081426;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 15px;
   font-weight: 600;
@@ -272,13 +275,12 @@
 }
 
 .dashboard .btn-voltar:hover {
-  background: #0B1F3A;
+  background: #0b1f3a;
 
-  border-color: #008CFF;
+  border-color: #008cff;
 
-  color: #FFFFFF;
+  color: #ffffff;
 }
-
 
 /* ==========================================================
    LISTA DE VEÍCULOS
@@ -294,9 +296,8 @@
   font-size: 24px;
   font-weight: 700;
 
-  color: #FFFFFF;
+  color: #ffffff;
 }
-
 
 /* ==========================================================
    NENHUM VEÍCULO
@@ -311,11 +312,10 @@
 
   background: rgba(8, 20, 38, 0.85);
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   text-align: center;
 }
-
 
 /* ==========================================================
    GRID DOS VEÍCULOS
@@ -329,7 +329,6 @@
   gap: 20px;
 }
 
-
 /* ==========================================================
    CARD DO VEÍCULO
    ========================================================== */
@@ -337,19 +336,17 @@
 .card-veiculo {
   padding: 22px;
 
-  background:
-    linear-gradient(
-      145deg,
-      rgba(8, 20, 38, 0.98),
-      rgba(11, 31, 58, 0.98)
-    );
+  background: linear-gradient(
+    145deg,
+    rgba(8, 20, 38, 0.98),
+    rgba(11, 31, 58, 0.98)
+  );
 
   border: 1px solid rgba(0, 174, 255, 0.16);
 
   border-radius: 16px;
 
-  box-shadow:
-    0 14px 30px rgba(0, 0, 0, 0.28);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
 
   box-sizing: border-box;
 
@@ -364,10 +361,8 @@
 
   border-color: rgba(0, 198, 255, 0.35);
 
-  box-shadow:
-    0 18px 38px rgba(0, 0, 0, 0.34);
+  box-shadow: 0 18px 38px rgba(0, 0, 0, 0.34);
 }
-
 
 /* ==========================================================
    TOPO DO VEÍCULO
@@ -386,7 +381,7 @@
 .tipo-veiculo {
   display: inline-block;
 
-  color: #00C6FF;
+  color: #00c6ff;
 
   font-size: 14px;
   font-weight: 600;
@@ -395,7 +390,7 @@
 .card-veiculo h3 {
   margin: 6px 0 0;
 
-  color: #FFFFFF;
+  color: #ffffff;
 
   font-size: 21px;
   font-weight: 700;
@@ -410,12 +405,11 @@
 
   background: #081426;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 13px;
   font-weight: 600;
 }
-
 
 /* ==========================================================
    DADOS DO VEÍCULO
@@ -430,15 +424,14 @@
 .dados-veiculo p {
   margin: 0;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 14px;
 }
 
 .dados-veiculo strong {
-  color: #FFFFFF;
+  color: #ffffff;
 }
-
 
 /* ==========================================================
    OBSERVAÇÕES
@@ -453,7 +446,7 @@
 }
 
 .observacao-veiculo strong {
-  color: #FFFFFF;
+  color: #ffffff;
 
   font-size: 14px;
 }
@@ -461,13 +454,12 @@
 .observacao-veiculo p {
   margin: 7px 0 0;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 14px;
 
   line-height: 1.5;
 }
-
 
 /* ==========================================================
    GASTOS DO VEÍCULO
@@ -490,15 +482,14 @@
 
   margin-bottom: 12px;
 
-  color: #FFFFFF;
+  color: #ffffff;
 
   font-size: 14px;
 }
 
 .gastos-titulo strong:last-child {
-  color: #00C6FF;
+  color: #00c6ff;
 }
-
 
 /* ==========================================================
    SEM GASTOS
@@ -507,11 +498,10 @@
 .sem-gastos {
   margin: 0;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 13px;
 }
-
 
 /* ==========================================================
    LISTA DE GASTOS
@@ -544,7 +534,7 @@
 }
 
 .gasto-item strong {
-  color: #FFFFFF;
+  color: #ffffff;
 
   font-size: 13px;
 
@@ -554,7 +544,7 @@
 .gasto-item p {
   margin: 3px 0 0;
 
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 12px;
 
@@ -576,13 +566,12 @@
 }
 
 .gasto-item > strong {
-  color: #00C6FF;
+  color: #00c6ff;
 
   font-size: 13px;
 
   white-space: nowrap;
 }
-
 
 /* ==========================================================
    CUSTO REAL
@@ -599,31 +588,29 @@
 
   padding: 14px;
 
-  border: 1px solid rgba(0, 140, 255, 0.20);
+  border: 1px solid rgba(0, 140, 255, 0.2);
 
   border-radius: 12px;
 
-  background:
-    linear-gradient(
-      135deg,
-      rgba(0, 140, 255, 0.08),
-      rgba(0, 198, 255, 0.05)
-    );
+  background: linear-gradient(
+    135deg,
+    rgba(0, 140, 255, 0.08),
+    rgba(0, 198, 255, 0.05)
+  );
 }
 
 .custo-real span {
-  color: #AEBBD0;
+  color: #aebbd0;
 
   font-size: 14px;
   font-weight: 600;
 }
 
 .custo-real strong {
-  color: #FFFFFF;
+  color: #ffffff;
 
   font-size: 18px;
 }
-
 
 /* ==========================================================
    AÇÕES DO VEÍCULO
@@ -632,7 +619,6 @@
 .acoes-veiculo {
   margin-top: 18px;
 }
-
 
 /* ==========================================================
    BOTÃO ADICIONAR GASTO
@@ -649,7 +635,7 @@
 
   background: rgba(0, 140, 255, 0.08);
 
-  color: #00C6FF;
+  color: #00c6ff;
 
   font-size: 14px;
   font-weight: 700;
@@ -666,9 +652,9 @@
 .btn-gasto:hover {
   background: rgba(0, 140, 255, 0.16);
 
-  border-color: #00C6FF;
+  border-color: #00c6ff;
 
-  color: #FFFFFF;
+  color: #ffffff;
 
   transform: translateY(-1px);
 }
@@ -676,7 +662,6 @@
 .btn-gasto:active {
   transform: translateY(0);
 }
-
 
 /* ==========================================================
    TABLET
@@ -687,7 +672,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
 
 /* ==========================================================
    CELULAR
@@ -706,6 +690,9 @@
     font-size: 26px;
   }
 
+  .foto-veiculo {
+    height: 200px;
+  }
   .resumo {
     grid-template-columns: 1fr;
 
@@ -734,7 +721,6 @@
     padding: 18px;
   }
 }
-
 
 /* ==========================================================
    CELULAR PEQUENO

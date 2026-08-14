@@ -25,8 +25,38 @@ export function CadastrarVeiculo({
   const [situacao, setSituacao] = useState("");
   const [dataCompra, setDataCompra] = useState("");
   const [observacoes, setObservacoes] = useState("");
+  const [foto, setFoto] = useState<File | null>(null);
 
   async function cadastrarVeiculo() {
+    let fotoUrl = null;
+
+    if (foto) {
+      const extensao = foto.name.split(".").pop() || "jpg";
+
+      const nomeArquivo = `${crypto.randomUUID()}.${extensao}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from("fotos-veiculos")
+        .upload(nomeArquivo, foto, {
+          cacheControl: "3600",
+          upsert: false,
+        });
+
+      if (uploadError) {
+        console.error("Erro ao enviar foto do veículo:", uploadError);
+
+        alert("Não foi possível enviar a foto do veículo.");
+
+        return;
+      }
+
+      const { data: urlData } = supabase.storage
+        .from("fotos-veiculos")
+        .getPublicUrl(nomeArquivo);
+
+      fotoUrl = urlData.publicUrl;
+    }
+
     const { data, error } = await supabase
       .from("veiculos")
       .insert({
@@ -42,13 +72,16 @@ export function CadastrarVeiculo({
         situacao,
         data_compra: dataCompra,
         observacoes,
+        foto: fotoUrl,
       })
       .select()
       .single();
 
     if (error) {
       console.error("Erro ao cadastrar veículo:", error);
+
       alert("Erro ao cadastrar veículo.");
+
       return;
     }
 
@@ -207,6 +240,23 @@ export function CadastrarVeiculo({
             type="date"
             value={dataCompra}
             onChange={(evento) => setDataCompra(evento.target.value)}
+          />
+        </div>
+
+        <div className="campo">
+          <label htmlFor="foto">
+            Foto do veículo <span>(opcional)</span>
+          </label>
+
+          <input
+            id="foto"
+            type="file"
+            accept="image/*"
+            onChange={(evento) => {
+              const arquivo = evento.target.files?.[0] ?? null;
+
+              setFoto(arquivo);
+            }}
           />
         </div>
 

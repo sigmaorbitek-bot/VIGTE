@@ -18,4 +18,6 @@ export type Veiculo = {
   dataCompra: string;
 
   observacoes: string;
+
+  foto: string;
 };
