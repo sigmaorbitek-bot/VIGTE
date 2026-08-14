@@ -36,7 +36,6 @@ export function Usuario({ onSelecionarUsuario }: UsuarioProps) {
           <div className="icone-opcao">👤</div>
 
           <h2>Sou cliente</h2>
-
           <p>Quero consultar/comprar veículos.</p>
 
           <button className="btn-opcao">Acessar como Cliente</button>

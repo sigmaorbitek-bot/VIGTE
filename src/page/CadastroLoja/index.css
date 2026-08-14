@@ -1,3 +1,21 @@
+/* ==========================================================
+   VIGTE — CADASTRO DE LOJA
+
+   Paleta oficial:
+   #050B16 → Fundo quase preto / Navy
+   #081426 → Azul-marinho
+   #0B1F3A → Azul escuro
+   #008CFF → Azul elétrico
+   #00C6FF → Ciano
+   #FFFFFF → Branco
+   #AEBBD0 → Texto secundário
+   ========================================================== */
+
+
+/* ==========================================================
+   CONTAINER PRINCIPAL
+   ========================================================== */
+
 .cadastro-loja-container {
   min-height: 100vh;
 
@@ -5,53 +23,141 @@
   align-items: center;
   justify-content: center;
 
-  padding: 24px;
+  padding: 40px 20px;
+
+  background:
+    radial-gradient(
+      circle at top center,
+      rgba(0, 198, 255, 0.10),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #050B16 0%,
+      #081426 55%,
+      #0B1F3A 100%
+    );
+
+  color: #FFFFFF;
+
+  box-sizing: border-box;
 }
 
+
+/* ==========================================================
+   CARD
+   ========================================================== */
+
 .cadastro-loja-card {
+  position: relative;
+
   width: 100%;
   max-width: 500px;
 
-  background-color: #ffffff;
-
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-
   padding: 32px;
 
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11, 31, 58, 0.98),
+      rgba(8, 20, 38, 0.98)
+    );
+
+  border: 1px solid rgba(0, 174, 255, 0.18);
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.32);
+
+  box-sizing: border-box;
+
+  overflow: hidden;
 }
+
+
+/* ==========================================================
+   DETALHE SUPERIOR
+   ========================================================== */
+
+.cadastro-loja-card::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #008CFF,
+      #00C6FF
+    );
+}
+
+
+/* ==========================================================
+   CABEÇALHO
+   ========================================================== */
 
 .cadastro-loja-cabecalho {
   text-align: center;
 
-  margin-bottom: 32px;
+  margin-bottom: 30px;
 }
 
 .cadastro-loja-icone {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  font-size: 48px;
+  width: 70px;
+  height: 70px;
 
-  margin-bottom: 16px;
+  margin: 0 auto 18px;
+
+  border-radius: 18px;
+
+  background:
+    rgba(0, 140, 255, 0.10);
+
+  border: 1px solid rgba(0, 198, 255, 0.18);
+
+  font-size: 34px;
+
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 .cadastro-loja-cabecalho h1 {
-  font-size: 28px;
+  margin: 0 0 8px;
 
-  margin-bottom: 8px;
+  color: #FFFFFF;
+
+  font-size: 28px;
+  font-weight: 700;
 }
 
 .cadastro-loja-cabecalho p {
-  color: #6b7280;
+  margin: 0;
+
+  color: #AEBBD0;
+
+  font-size: 14px;
 
   line-height: 1.5;
 }
 
 
-/* CAMPOS */
+/* ==========================================================
+   CAMPOS
+   ========================================================== */
 
-.campo {
+.cadastro-loja-card .campo {
   display: flex;
 
   flex-direction: column;
@@ -61,65 +167,170 @@
   margin-bottom: 20px;
 }
 
-.campo label span {
-  color: #9ca3af;
-  font-weight: 400;
+.cadastro-loja-card .campo label {
+  color: #FFFFFF;
+
+  font-size: 14px;
+  font-weight: 600;
 }
 
-.campo input {
+.cadastro-loja-card .campo label span {
+  color: #718198;
+
+  font-weight: 400;
+
+  font-size: 12px;
+}
+
+
+/* ==========================================================
+   INPUTS
+   ========================================================== */
+
+.cadastro-loja-card .campo input {
   width: 100%;
 
-  padding: 13px 14px;
+  min-height: 46px;
 
-  border: 1px solid #d1d5db;
+  padding: 0 14px;
+
+  background: #050B16;
+
+  border: 1px solid #243752;
 
   border-radius: 10px;
+
+  color: #FFFFFF;
 
   font-size: 15px;
 
   outline: none;
+
+  box-sizing: border-box;
+
+  transition:
+    border-color 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.campo input:focus {
-  border-color: #111827;
+.cadastro-loja-card .campo input::placeholder {
+  color: #66758C;
+}
+
+.cadastro-loja-card .campo input:focus {
+  background: #081426;
+
+  border-color: #008CFF;
+
+  box-shadow:
+    0 0 0 3px rgba(0, 140, 255, 0.12);
 }
 
 
-/* BOTÃO */
+/* ==========================================================
+   BOTÃO CRIAR LOJA
+   ========================================================== */
 
 .btn-criar-loja {
   width: 100%;
-  border: none;
+
+  min-height: 48px;
+
+  padding: 0 16px;
+
+  border: 1px solid rgba(0, 198, 255, 0.30);
+
   border-radius: 10px;
 
-  padding: 14px;
+  background:
+    linear-gradient(
+      135deg,
+      #008CFF,
+      #00C6FF
+    );
 
-  background-color: #111827;
-
-  color: #ffffff;
+  color: #FFFFFF;
 
   font-size: 15px;
 
-  font-weight: 600;
+  font-weight: 700;
 
   cursor: pointer;
 
-  transition: 0.2s;
+  box-shadow:
+    0 8px 20px rgba(0, 140, 255, 0.18);
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .btn-criar-loja:hover {
-  background-color: #1f2937;
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 12px 25px rgba(0, 198, 255, 0.24);
+}
+
+.btn-criar-loja:active {
+  transform: translateY(0);
 }
 
 
-/* CELULAR */
+/* ==========================================================
+   CELULAR
+   ========================================================== */
 
 @media (max-width: 600px) {
   .cadastro-loja-container {
-    padding: 16px;
+    padding: 24px 16px;
   }
 
   .cadastro-loja-card {
-    padding: 24px 20px;
+    padding: 26px 20px;
+
+    border-radius: 16px;
+  }
+
+  .cadastro-loja-cabecalho {
+    margin-bottom: 25px;
+  }
+
+  .cadastro-loja-cabecalho h1 {
+    font-size: 24px;
+  }
+
+  .cadastro-loja-cabecalho p {
+    font-size: 13px;
+  }
+
+  .cadastro-loja-icone {
+    width: 62px;
+    height: 62px;
+
+    font-size: 30px;
+  }
+}
+
+
+/* ==========================================================
+   CELULAR PEQUENO
+   ========================================================== */
+
+@media (max-width: 380px) {
+  .cadastro-loja-container {
+    padding: 20px 12px;
+  }
+
+  .cadastro-loja-card {
+    padding: 24px 16px;
+  }
+
+  .cadastro-loja-cabecalho h1 {
+    font-size: 22px;
   }
 }

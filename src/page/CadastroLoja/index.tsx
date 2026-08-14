@@ -9,81 +9,168 @@ type CadastroLojaProps = {
   }) => void;
 };
 
-export function CadastroLoja({ onCriarLoja }: CadastroLojaProps) {
-  const [nomeDaLoja, setNomeDaLoja] = useState("");
-  const [whatsApp, setWhatsApp] = useState("");
-  const [cidade, setcidade] = useState("");
+export function CadastroLoja({
+  onCriarLoja,
+}: CadastroLojaProps) {
+  const [nomeDaLoja, setNomeDaLoja] =
+    useState("");
+
+  const [whatsApp, setWhatsApp] =
+    useState("");
+
+  const [cidade, setCidade] =
+    useState("");
+
+  // ==========================================================
+  // CRIAR LOJA
+  // ==========================================================
+
+  function criarLoja() {
+    if (!nomeDaLoja.trim()) {
+      alert("Informe o nome da loja.");
+      return;
+    }
+
+    if (!whatsApp.trim()) {
+      alert("Informe o WhatsApp da loja.");
+      return;
+    }
+
+    if (!cidade.trim()) {
+      alert("Informe a cidade da loja.");
+      return;
+    }
+
+    const novaLoja = {
+      nomeDaLoja: nomeDaLoja.trim(),
+      whatsApp: whatsApp.trim(),
+      cidade: cidade.trim(),
+    };
+
+    onCriarLoja(novaLoja);
+  }
 
   return (
     <div className="cadastro-loja-container">
       <div className="cadastro-loja-card">
+
+        {/* ==================================================
+            CABEÇALHO
+        ================================================== */}
+
         <div className="cadastro-loja-cabecalho">
-          <span className="cadastro-loja-icone">🏪</span>
+          <span className="cadastro-loja-icone">
+            🏪
+          </span>
 
           <h1>Crie sua loja</h1>
 
-          <p>Cadastre sua loja para começar a gerenciar seus carros e motos.</p>
+          <p>
+            Cadastre sua loja para começar a
+            gerenciar seus Veiculos.
+          </p>
         </div>
 
-        <form>
+        {/* ==================================================
+            FORMULÁRIO
+        ================================================== */}
+
+        <form
+          onSubmit={(evento) => {
+            evento.preventDefault();
+            criarLoja();
+          }}
+        >
+          {/* ================================================
+              LOGO
+          ================================================= */}
+
           <div className="campo">
             <label htmlFor="logoLoja">
-              Logo ou foto da loja <span>(opcional)</span>
+              Logo ou foto da loja{" "}
+              <span>(opcional)</span>
             </label>
 
-            <input id="logoLoja" type="file" accept="image/*" />
+            <input
+              id="logoLoja"
+              type="file"
+              accept="image/*"
+            />
           </div>
 
+          {/* ================================================
+              NOME DA LOJA
+          ================================================= */}
+
           <div className="campo">
-            <label htmlFor="nomeLoja">Nome da loja</label>
+            <label htmlFor="nomeLoja">
+              Nome da loja
+            </label>
 
             <input
               id="nomeLoja"
               type="text"
               placeholder="Ex: Sigma Orbitek Veículos"
               value={nomeDaLoja}
-              onChange={(evento) => setNomeDaLoja(evento.target.value)}
+              onChange={(evento) =>
+                setNomeDaLoja(
+                  evento.target.value,
+                )
+              }
             />
           </div>
 
+          {/* ================================================
+              WHATSAPP
+          ================================================= */}
+
           <div className="campo">
-            <label htmlFor="whatsapp">WhatsApp</label>
+            <label htmlFor="whatsapp">
+              WhatsApp
+            </label>
 
             <input
               id="whatsapp"
               type="tel"
               placeholder="(00) 00000-0000"
               value={whatsApp}
-              onChange={(evento) => setWhatsApp(evento.target.value)}
+              onChange={(evento) =>
+                setWhatsApp(
+                  evento.target.value,
+                )
+              }
             />
           </div>
 
+          {/* ================================================
+              CIDADE
+          ================================================= */}
+
           <div className="campo">
-            <label htmlFor="cidade">Cidade</label>
+            <label htmlFor="cidade">
+              Cidade
+            </label>
 
             <input
               id="cidade"
               type="text"
               placeholder="Ex: Altinho - PE"
               value={cidade}
-              onChange={(evento) => setcidade(evento.target.value)}
+              onChange={(evento) =>
+                setCidade(
+                  evento.target.value,
+                )
+              }
             />
           </div>
 
+          {/* ================================================
+              BOTÃO
+          ================================================= */}
+
           <button
-            type="button"
+            type="submit"
             className="btn-criar-loja"
-            onClick={() => {
-              const novaLoja = {
-                nomeDaLoja: nomeDaLoja,
-                whatsApp: whatsApp,
-                cidade: cidade,
-              };
-
-              alert("Loja criada com sucesso!");
-
-              onCriarLoja(novaLoja);
-            }}
           >
             Criar minha loja
           </button>

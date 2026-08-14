@@ -1,112 +1,408 @@
+/* ==========================================================
+   VIGTE — MINHAS LOJAS
+
+   Paleta oficial:
+   #050B16 → Fundo quase preto / Navy
+   #081426 → Azul-marinho
+   #0B1F3A → Azul escuro
+   #008CFF → Azul elétrico
+   #00C6FF → Ciano
+   #FFFFFF → Branco
+   #AEBBD0 → Texto secundário
+   ========================================================== */
+
+
+/* ==========================================================
+   CONTAINER PRINCIPAL
+   ========================================================== */
+
 .minhas-lojas {
   min-height: 100vh;
-  padding: 32px 24px;
+
+  padding: 40px 20px;
+
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(0, 198, 255, 0.10),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      #050B16 0%,
+      #081426 55%,
+      #0B1F3A 100%
+    );
+
+  color: #FFFFFF;
+
+  box-sizing: border-box;
 }
 
+
+/* ==========================================================
+   CABEÇALHO
+   ========================================================== */
+
 .minhas-lojas-header {
+  width: 100%;
   max-width: 1000px;
+
   margin: 0 auto 32px;
 }
 
 .minhas-lojas-header h1 {
+  margin: 0 0 8px;
+
+  color: #FFFFFF;
+
   font-size: 32px;
-  margin-bottom: 8px;
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
 }
 
 .minhas-lojas-header p {
-  color: #6b7280;
+  margin: 0;
+
+  color: #AEBBD0;
+
+  font-size: 15px;
+
+  line-height: 1.5;
 }
 
-/* LISTA */
+
+/* ==========================================================
+   LISTA DE LOJAS
+   ========================================================== */
+
 .lista-lojas {
+  width: 100%;
   max-width: 1000px;
+
   margin: 0 auto;
+
   display: grid;
+
   grid-template-columns: repeat(2, 1fr);
+
   gap: 20px;
 }
 
-/* CARD */
+
+/* ==========================================================
+   CARD DA LOJA
+   ========================================================== */
+
 .card-loja {
-  background-color: #ffffff;
-  border: 1px solid #e5e7eb;
-  border-radius: 16px;
-  padding: 24px;
+  position: relative;
+
   display: flex;
   align-items: center;
+
   gap: 20px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+
+  padding: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11, 31, 58, 0.96),
+      rgba(8, 20, 38, 0.96)
+    );
+
+  border: 1px solid rgba(0, 174, 255, 0.16);
+
+  border-radius: 16px;
+
+  box-shadow:
+    0 14px 30px rgba(0, 0, 0, 0.28);
+
+  box-sizing: border-box;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
+
+
+/* ==========================================================
+   DETALHE SUPERIOR DO CARD
+   ========================================================== */
+
+.card-loja::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #008CFF,
+      #00C6FF
+    );
+
+  opacity: 0.8;
+}
+
+
+/* ==========================================================
+   HOVER
+   ========================================================== */
+
+.card-loja:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(0, 198, 255, 0.35);
+
+  box-shadow:
+    0 18px 38px rgba(0, 0, 0, 0.34),
+    0 0 20px rgba(0, 140, 255, 0.06);
+}
+
+
+/* ==========================================================
+   LOGO DA LOJA
+   ========================================================== */
 
 .card-loja img {
   width: 72px;
   height: 72px;
+
+  flex-shrink: 0;
+
   object-fit: cover;
-  border-radius: 12px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(0, 198, 255, 0.18);
+
+  background: #050B16;
+
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.20);
 }
+
+
+/* ==========================================================
+   INFORMAÇÕES DA LOJA
+   ========================================================== */
 
 .informacoes-loja {
   flex: 1;
+
+  min-width: 0;
 }
 
 .informacoes-loja h2 {
+  margin: 0 0 8px;
+
+  color: #FFFFFF;
+
   font-size: 20px;
-  margin-bottom: 8px;
+  font-weight: 700;
+
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+
+  white-space: nowrap;
 }
 
 .informacoes-loja p {
-  color: #6b7280;
+  margin: 0 0 5px;
+
+  color: #AEBBD0;
+
   font-size: 14px;
-  margin-bottom: 4px;
+
+  line-height: 1.4;
 }
 
-/* BOTÃO */
+
+/* ==========================================================
+   BOTÃO ENTRAR
+   ========================================================== */
 
 .card-loja button {
-  border: none;
+  min-height: 44px;
+
+  padding: 0 16px;
+
+  flex-shrink: 0;
+
+  border: 1px solid rgba(0, 198, 255, 0.25);
+
   border-radius: 10px;
-  padding: 10px 14px;
-  background-color: #111827;
-  color: #ffffff;
-  font-weight: 600;
+
+  background:
+    linear-gradient(
+      135deg,
+      #008CFF,
+      #00C6FF
+    );
+
+  color: #FFFFFF;
+
+  font-size: 14px;
+  font-weight: 700;
+
   cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(0, 140, 255, 0.18);
+
+  transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-/* NOVA LOJA */
+.card-loja button:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 12px 24px rgba(0, 198, 255, 0.24);
+}
+
+.card-loja button:active {
+  transform: translateY(0);
+}
+
+
+/* ==========================================================
+   NOVA LOJA
+   ========================================================== */
 
 .btn-nova-loja {
-  border: 2px dashed #d1d5db;
-  border-radius: 16px;
+  width: 100%;
+
+  min-height: 120px;
+
   padding: 24px;
-  background-color: transparent;
-  color: #374151;
+
+  border: 1px dashed rgba(0, 198, 255, 0.35);
+
+  border-radius: 16px;
+
+  background:
+    rgba(8, 20, 38, 0.55);
+
+  color: #00C6FF;
+
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 700;
+
   cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    color 0.2s ease;
 }
 
-/* CELULAR */
+.btn-nova-loja:hover {
+  background:
+    rgba(0, 140, 255, 0.08);
+
+  border-color: #00C6FF;
+
+  color: #FFFFFF;
+
+  transform: translateY(-2px);
+}
+
+
+/* ==========================================================
+   TABLET
+   ========================================================== */
+
+@media (max-width: 850px) {
+  .lista-lojas {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ==========================================================
+   CELULAR
+   ========================================================== */
 
 @media (max-width: 700px) {
   .minhas-lojas {
-    padding: 24px 16px;
+    padding: 28px 16px;
   }
 
-  .lista-lojas {
-    grid-template-columns: 1fr;
+  .minhas-lojas-header {
+    margin-bottom: 24px;
+  }
+
+  .minhas-lojas-header h1 {
+    font-size: 27px;
+  }
+
+  .minhas-lojas-header p {
+    font-size: 14px;
   }
 
   .card-loja {
     flex-direction: column;
+
     align-items: stretch;
+
     text-align: center;
+
+    padding: 22px 18px;
   }
 
   .card-loja img {
+    width: 76px;
+    height: 76px;
+
     margin: 0 auto;
+  }
+
+  .informacoes-loja h2 {
+    white-space: normal;
   }
 
   .card-loja button {
     width: 100%;
+  }
+
+  .btn-nova-loja {
+    min-height: 100px;
+  }
+}
+
+
+/* ==========================================================
+   CELULAR PEQUENO
+   ========================================================== */
+
+@media (max-width: 380px) {
+  .minhas-lojas {
+    padding: 22px 12px;
+  }
+
+  .minhas-lojas-header h1 {
+    font-size: 24px;
+  }
+
+  .card-loja {
+    padding: 20px 15px;
   }
 }

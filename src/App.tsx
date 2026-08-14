@@ -17,25 +17,13 @@ import { CadastroLoja } from "./page/CadastroLoja";
 import { MinhasLojas } from "./page/MinhasLojas";
 import { Dashboard } from "./page/Dashboard";
 import { CadastrarVeiculo } from "./page/CadastroVeiculo";
+import { CadastroGasto } from "./page/CadastroGasto";
 
-// Tipo do veículo.
+// Tipos.
 import type { Veiculo } from "./types/Veiculo";
 
 // ============================================================
 // TIPO DA LOJA
-// ============================================================
-//
-// Esse tipo representa a estrutura de uma loja dentro
-// do nosso sistema.
-//
-// Ele precisa corresponder às colunas da tabela "lojas"
-// que criamos no Supabase.
-//
-// id           → identificador da loja
-// logo         → logo da loja
-// nomeDaLoja   → nome da loja
-// whatsApp     → WhatsApp
-// cidade       → cidade da loja
 // ============================================================
 
 type Loja = {
@@ -47,19 +35,25 @@ type Loja = {
 };
 
 // ============================================================
+// TIPO DO GASTO
+// ============================================================
+
+type Gasto = {
+  id: number;
+  veiculoId: number;
+  tipo: string;
+  descricao: string;
+  valor: number;
+  dataGasto: string;
+};
+
+// ============================================================
 // COMPONENTE PRINCIPAL
 // ============================================================
 
 function App() {
   // ==========================================================
   // TIPO DE USUÁRIO
-  // ==========================================================
-  //
-  // null       → ainda não escolheu
-  // revendedor → entrou como revendedor
-  // cliente    → entrou como cliente
-  //
-  // A área do cliente ainda é provisória.
   // ==========================================================
 
   const [tipoUsuario, setTipoUsuario] = useState<
@@ -69,31 +63,17 @@ function App() {
   // ==========================================================
   // TELA ATUAL
   // ==========================================================
-  //
-  // lojas           → Minhas Lojas
-  // cadastro        → Cadastro de Loja
-  // dashboard       → Dashboard da loja
-  // cadastroVeiculo → Cadastro de Veículo
-  // ==========================================================
 
   const [tela, setTela] = useState<
-    "lojas" | "cadastro" | "dashboard" | "cadastroVeiculo"
+    | "lojas"
+    | "cadastro"
+    | "dashboard"
+    | "cadastroVeiculo"
+    | "cadastroGasto"
   >("lojas");
 
   // ==========================================================
   // LISTA DE LOJAS
-  // ==========================================================
-  //
-  // IMPORTANTE:
-  //
-  // Antes as lojas vinham de:
-  //
-  // ./data/lojas
-  //
-  // Agora elas virão do Supabase.
-  //
-  // Começamos com uma lista vazia porque ainda precisamos
-  // buscar os dados no banco.
   // ==========================================================
 
   const [listaLojas, setListaLojas] = useState<Loja[]>([]);
@@ -101,93 +81,49 @@ function App() {
   // ==========================================================
   // LOJA SELECIONADA
   // ==========================================================
-  //
-  // Guarda a loja em que o revendedor entrou.
-  //
-  // Exemplo:
-  //
-  // id = 1
-  // nomeDaLoja = "Sigma Veículos"
-  //
-  // Depois usamos esse ID para relacionar os veículos
-  // à loja correta.
+
+  const [lojaSelecionada, setLojaSelecionada] =
+    useState<Loja | null>(null);
+
+  // ==========================================================
+  // VEÍCULO SELECIONADO
   // ==========================================================
 
-  const [lojaSelecionada, setLojaSelecionada] = useState<Loja | null>(null);
+  const [veiculoSelecionado, setVeiculoSelecionado] =
+    useState<Veiculo | null>(null);
 
   // ==========================================================
   // LISTA DE VEÍCULOS
   // ==========================================================
-  //
-  // POR ENQUANTO os veículos continuam sendo armazenados
-  // somente no React.
-  //
-  // Ainda NÃO estamos salvando veículos no Supabase.
-  //
-  // Essa será uma próxima etapa.
+
+  const [listaVeiculos, setListaVeiculos] =
+    useState<Veiculo[]>([]);
+
+  // ==========================================================
+  // LISTA DE GASTOS
   // ==========================================================
 
-  const [listaVeiculos, setListaVeiculos] = useState<Veiculo[]>([]);
+  const [listaGastos, setListaGastos] =
+    useState<Gasto[]>([]);
 
   // ==========================================================
   // CARREGANDO LOJAS
   // ==========================================================
-  //
-  // Enquanto o Supabase estiver buscando os dados,
-  // usamos esse estado para saber que a consulta ainda
-  // está acontecendo.
-  // ==========================================================
 
-  const [carregandoLojas, setCarregandoLojas] = useState(true);
+  const [carregandoLojas, setCarregandoLojas] =
+    useState(true);
 
   // ==========================================================
   // BUSCAR LOJAS DO SUPABASE
   // ==========================================================
-  //
-  // useEffect executa esse código quando o App é iniciado.
-  //
-  // Fluxo:
-  //
-  // App inicia
-  //    ↓
-  // buscarLojas()
-  //    ↓
-  // Supabase
-  //    ↓
-  // tabela "lojas"
-  //    ↓
-  // setListaLojas()
-  //    ↓
-  // MinhasLojas recebe os dados
-  // ==========================================================
 
   useEffect(() => {
     async function buscarLojas() {
-      // Informa que estamos carregando os dados.
       setCarregandoLojas(true);
 
-      // ======================================================
-      // CONSULTA AO SUPABASE
-      // ======================================================
-      //
-      // .from("lojas")
-      //
-      // significa:
-      //
-      // "quero trabalhar com a tabela lojas"
-      //
-      // .select("*")
-      //
-      // significa:
-      //
-      // "quero buscar todas as colunas"
-      // ======================================================
-
-      const { data, error } = await supabase.from("lojas").select("*");
-
-      // ======================================================
-      // VERIFICAR ERRO
-      // ======================================================
+      const { data, error } = await supabase
+        .from("lojas")
+        .select("*");
 
       if (error) {
         console.error("Erro ao buscar lojas:", error);
@@ -199,59 +135,168 @@ function App() {
         return;
       }
 
-      // ======================================================
-      // COLOCAR OS DADOS NO REACT
-      // ======================================================
-      //
-      // data contém as lojas que vieram do Supabase.
-      //
-      // Como a tabela está relacionada ao nosso tipo Loja,
-      // podemos colocar os dados no estado.
-      // ======================================================
-
-      const lojasConvertidas: Loja[] = (data ?? []).map((loja) => ({
-        id: loja.id,
-        logo: loja.logo,
-        nomeDaLoja: loja.nome_da_loja,
-        whatsApp: loja.whatsapp,
-        cidade: loja.cidade,
-      }));
+      const lojasConvertidas: Loja[] = (data ?? []).map(
+        (loja) => ({
+          id: loja.id,
+          logo: loja.logo,
+          nomeDaLoja: loja.nome_da_loja,
+          whatsApp: loja.whatsapp,
+          cidade: loja.cidade,
+        }),
+      );
 
       setListaLojas(lojasConvertidas);
 
-      // Terminamos o carregamento.
       setCarregandoLojas(false);
     }
 
-    // Executa a função.
     buscarLojas();
   }, []);
+
+  // ==========================================================
+  // BUSCAR VEÍCULOS DO SUPABASE
+  // ==========================================================
+
+  async function buscarVeiculos(
+    lojaId: number,
+  ): Promise<Veiculo[]> {
+    const { data, error } = await supabase
+      .from("veiculos")
+      .select("*")
+      .eq("loja_id", lojaId)
+      .order("created_at", {
+        ascending: false,
+      });
+
+    if (error) {
+      console.error(
+        "Erro ao buscar veículos:",
+        error,
+      );
+
+      alert(
+        "Não foi possível carregar os veículos.",
+      );
+
+      return [];
+    }
+
+    const veiculosConvertidos: Veiculo[] = (
+      data ?? []
+    ).map((veiculo) => ({
+      id: veiculo.id,
+      lojaId: veiculo.loja_id,
+      tipo: veiculo.tipo,
+      marca: veiculo.marca,
+      modelo: veiculo.modelo,
+      ano: veiculo.ano,
+      cor: veiculo.cor,
+      placa: veiculo.placa ?? "",
+      quilometragem:
+        veiculo.quilometragem ?? "",
+      valorCompra: String(
+        veiculo.valor_compra ?? "",
+      ),
+      situacao: veiculo.situacao,
+      dataCompra: veiculo.data_compra,
+      observacoes:
+        veiculo.observacoes ?? "",
+    }));
+
+    setListaVeiculos(veiculosConvertidos);
+
+    // IMPORTANTÍSSIMO:
+    // agora a função devolve os veículos
+    // para quem chamou.
+    return veiculosConvertidos;
+  }
+
+  // ==========================================================
+  // BUSCAR GASTOS DO SUPABASE
+  // ==========================================================
+
+  async function buscarGastos(
+    veiculoIds: number[],
+  ): Promise<Gasto[]> {
+    // Se não existem veículos,
+    // não existem gastos para buscar.
+    if (veiculoIds.length === 0) {
+      setListaGastos([]);
+
+      return [];
+    }
+
+    const { data, error } = await supabase
+      .from("gastos")
+      .select("*")
+      .in("veiculo_id", veiculoIds)
+      .order("data_gasto", {
+        ascending: false,
+      })
+      .order("created_at", {
+        ascending: false,
+      });
+
+    if (error) {
+      console.error(
+        "Erro ao buscar gastos:",
+        error,
+      );
+
+      alert(
+        "Não foi possível carregar os gastos.",
+      );
+
+      return [];
+    }
+
+    const gastosConvertidos: Gasto[] = (
+      data ?? []
+    ).map((gasto) => ({
+      id: gasto.id,
+      veiculoId: gasto.veiculo_id,
+      tipo: gasto.tipo,
+      descricao: gasto.descricao ?? "",
+      valor: Number(gasto.valor ?? 0),
+      dataGasto: gasto.data_gasto,
+    }));
+
+    setListaGastos(gastosConvertidos);
+
+    return gastosConvertidos;
+  }
+
+  // ==========================================================
+  // CARREGAR DADOS DA LOJA
+  // ==========================================================
+
+  async function carregarDadosDaLoja(
+    lojaId: number,
+  ) {
+    // Primeiro buscamos os veículos.
+    const veiculos =
+      await buscarVeiculos(lojaId);
+
+    // Depois buscamos os gastos desses veículos.
+    await buscarGastos(
+      veiculos.map(
+        (veiculo) => veiculo.id,
+      ),
+    );
+  }
 
   // ==========================================================
   // SELECIONAR TIPO DE USUÁRIO
   // ==========================================================
 
-  function selecionarUsuario(tipo: "revendedor" | "cliente") {
+  function selecionarUsuario(
+    tipo: "revendedor" | "cliente",
+  ) {
     setTipoUsuario(tipo);
   }
 
   // ==========================================================
   // CRIAR NOVA LOJA
-  // ==========================================================
-  //
-  // Recebe os dados preenchidos no formulário CadastroLoja.
-  //
-  // Fluxo:
-  //
-  // CadastroLoja
-  //      ↓
-  // criarLoja()
-  //      ↓
-  // Supabase
-  //      ↓
-  // tabela "lojas"
-  //      ↓
-  // atualiza lista no React
   // ==========================================================
 
   async function criarLoja(loja: {
@@ -259,25 +304,6 @@ function App() {
     whatsApp: string;
     cidade: string;
   }) {
-    // ========================================================
-    // ENVIAR A NOVA LOJA PARA O SUPABASE
-    // ========================================================
-    //
-    // ATENÇÃO:
-    //
-    // O React usa:
-    //
-    // nomeDaLoja
-    // whatsApp
-    //
-    // Mas o banco usa:
-    //
-    // nome_da_loja
-    // whatsapp
-    //
-    // Por isso fazemos a conversão aqui.
-    // ========================================================
-
     const { data, error } = await supabase
       .from("lojas")
       .insert([
@@ -290,79 +316,64 @@ function App() {
       ])
       .select();
 
-    // ========================================================
-    // VERIFICAR ERRO
-    // ========================================================
-
     if (error) {
-      console.error("Erro ao cadastrar loja:", error);
+      console.error(
+        "Erro ao cadastrar loja:",
+        error,
+      );
 
-      alert("Não foi possível cadastrar a loja.");
+      alert(
+        "Não foi possível cadastrar a loja.",
+      );
 
       return;
     }
-
-    // ========================================================
-    // VERIFICAR SE O SUPABASE DEVOLVEU A LOJA
-    // ========================================================
 
     if (!data || data.length === 0) {
-      console.error("A loja foi enviada, mas nenhum dado foi retornado.");
+      console.error(
+        "A loja foi enviada, mas nenhum dado foi retornado.",
+      );
 
-      alert("A loja foi cadastrada, mas não conseguimos atualizar a tela.");
+      alert(
+        "A loja foi cadastrada, mas não conseguimos atualizar a tela.",
+      );
 
       return;
     }
-
-    // ========================================================
-    // CONVERTER O FORMATO DO BANCO PARA O FORMATO DO REACT
-    // ========================================================
-    //
-    // Supabase:
-    //
-    // nome_da_loja
-    // whatsapp
-    //
-    // React:
-    //
-    // nomeDaLoja
-    // whatsApp
-    // ========================================================
 
     const lojaCriada: Loja = {
       id: data[0].id,
       logo: data[0].logo,
-      nomeDaLoja: data[0].nome_da_loja,
+      nomeDaLoja:
+        data[0].nome_da_loja,
       whatsApp: data[0].whatsapp,
       cidade: data[0].cidade,
     };
 
-    // ========================================================
-    // ATUALIZAR A LISTA DE LOJAS
-    // ========================================================
-
-    setListaLojas((listaAtual) => [...listaAtual, lojaCriada]);
-
-    // ========================================================
-    // VOLTAR PARA MINHAS LOJAS
-    // ========================================================
+    setListaLojas(
+      (listaAtual) => [
+        ...listaAtual,
+        lojaCriada,
+      ],
+    );
 
     setTela("lojas");
   }
+
   // ==========================================================
   // ENTRAR EM UMA LOJA
   // ==========================================================
-  //
-  // Quando o usuário clicar em:
-  //
-  // "Entrar na loja"
-  //
-  // essa função será executada.
-  // ==========================================================
 
-  function entrarNaLoja(loja: Loja) {
+  async function entrarNaLoja(
+    loja: Loja,
+  ) {
     // Guarda a loja selecionada.
     setLojaSelecionada(loja);
+
+    // Carrega veículos + gastos.
+    await carregarDadosDaLoja(
+      loja.id,
+    );
 
     // Abre o Dashboard.
     setTela("dashboard");
@@ -371,13 +382,15 @@ function App() {
   // ==========================================================
   // TELA DE ESCOLHA DO USUÁRIO
   // ==========================================================
-  //
-  // Enquanto nenhum tipo de usuário foi escolhido,
-  // mostramos a tela Usuario.
-  // ==========================================================
 
   if (tipoUsuario === null) {
-    return <Usuario onSelecionarUsuario={selecionarUsuario} />;
+    return (
+      <Usuario
+        onSelecionarUsuario={
+          selecionarUsuario
+        }
+      />
+    );
   }
 
   // ==========================================================
@@ -390,34 +403,25 @@ function App() {
     // ========================================================
 
     if (tela === "lojas") {
-      // ------------------------------------------------------
-      // Se ainda estamos buscando as lojas,
-      // mostramos uma mensagem simples.
-      // ------------------------------------------------------
-
       if (carregandoLojas) {
         return (
           <div>
-            <h2>Carregando lojas...</h2>
+            <h2>
+              Carregando lojas...
+            </h2>
           </div>
         );
       }
 
-      // ------------------------------------------------------
-      // Depois que o Supabase terminou,
-      // mostramos MinhasLojas.
-      // ------------------------------------------------------
-
       return (
         <MinhasLojas
-          // Lista que veio do Supabase.
           lojas={listaLojas}
-          // Botão para cadastrar nova loja.
           onCadastrarLoja={() => {
             setTela("cadastro");
           }}
-          // Botão para entrar em uma loja.
-          onEntrarLoja={entrarNaLoja}
+          onEntrarLoja={
+            entrarNaLoja
+          }
         />
       );
     }
@@ -429,8 +433,6 @@ function App() {
     if (tela === "cadastro") {
       return (
         <CadastroLoja
-          // Quando o formulário for enviado,
-          // chamamos criarLoja().
           onCriarLoja={criarLoja}
         />
       );
@@ -440,32 +442,42 @@ function App() {
     // DASHBOARD DA LOJA
     // ========================================================
 
-    if (tela === "dashboard" && lojaSelecionada) {
-      // ------------------------------------------------------
-      // FILTRAR VEÍCULOS DA LOJA
-      // ------------------------------------------------------
-      //
-      // Ainda estamos usando os veículos no estado do React.
-      //
-      // Pegamos somente os veículos pertencentes à loja
-      // selecionada.
-      // ------------------------------------------------------
-
-      const veiculosDaLoja = listaVeiculos.filter(
-        (veiculo) => veiculo.lojaId === lojaSelecionada.id,
-      );
+    if (
+      tela === "dashboard" &&
+      lojaSelecionada
+    ) {
+      const veiculosDaLoja =
+        listaVeiculos.filter(
+          (veiculo) =>
+            veiculo.lojaId ===
+            lojaSelecionada.id,
+        );
 
       return (
         <Dashboard
-          // Nome da loja.
-          nomeDaLoja={lojaSelecionada.nomeDaLoja}
-          // Veículos pertencentes à loja.
-          veiculos={veiculosDaLoja}
-          // Abrir cadastro de veículo.
+          nomeDaLoja={
+            lojaSelecionada.nomeDaLoja
+          }
+          veiculos={
+            veiculosDaLoja
+          }
+          gastos={listaGastos}
           onCadastrarVeiculo={() => {
-            setTela("cadastroVeiculo");
+            setTela(
+              "cadastroVeiculo",
+            );
           }}
-          // Voltar para Minhas Lojas.
+          onAdicionarGasto={(
+            veiculo,
+          ) => {
+            setVeiculoSelecionado(
+              veiculo,
+            );
+
+            setTela(
+              "cadastroGasto",
+            );
+          }}
           onVoltar={() => {
             setTela("lojas");
           }}
@@ -477,15 +489,10 @@ function App() {
     // CADASTRO DE VEÍCULO
     // ========================================================
 
-    if (tela === "cadastroVeiculo") {
-      // ------------------------------------------------------
-      // PROTEÇÃO
-      // ------------------------------------------------------
-      //
-      // Não podemos cadastrar um veículo sem saber
-      // em qual loja ele será cadastrado.
-      // ------------------------------------------------------
-
+    if (
+      tela ===
+      "cadastroVeiculo"
+    ) {
       if (!lojaSelecionada) {
         setTela("lojas");
 
@@ -494,34 +501,83 @@ function App() {
 
       return (
         <CadastrarVeiculo
-          // ID da loja selecionada.
-          //
-          // O veículo recebe esse ID para sabermos
-          // a qual loja ele pertence.
-          lojaId={lojaSelecionada.id}
-          // --------------------------------------------------
-          // VEÍCULO CADASTRADO
-          // --------------------------------------------------
+          lojaId={
+            lojaSelecionada.id
+          }
+          onCadastrarVeiculo={async (
+            veiculo,
+          ) => {
+            // Atualiza veículos + gastos
+            // depois do cadastro.
+            await carregarDadosDaLoja(
+              veiculo.lojaId,
+            );
 
-          onCadastrarVeiculo={(veiculo) => {
-            // Adiciona o veículo ao estado.
-            //
-            // IMPORTANTE:
-            //
-            // Ainda não está sendo salvo no Supabase.
-            // ------------------------------------------------
+            setTela("dashboard");
+          }}
+          onVoltar={() => {
+            setTela("dashboard");
+          }}
+        />
+      );
+    }
 
-            setListaVeiculos((listaAtual) => [...listaAtual, veiculo]);
+    // ========================================================
+    // CADASTRO DE GASTO
+    // ========================================================
+
+    if (
+      tela ===
+      "cadastroGasto"
+    ) {
+      if (
+        !veiculoSelecionado
+      ) {
+        setTela("dashboard");
+
+        return null;
+      }
+
+      return (
+        <CadastroGasto
+          veiculo={
+            veiculoSelecionado
+          }
+          onSalvarGasto={async () => {
+            // Depois de salvar o gasto,
+            // buscamos novamente os dados
+            // da loja.
+
+            if (
+              !lojaSelecionada
+            ) {
+              setTela(
+                "dashboard",
+              );
+
+              return;
+            }
+
+            await carregarDadosDaLoja(
+              lojaSelecionada.id,
+            );
+
+            // Limpa o veículo selecionado.
+            setVeiculoSelecionado(
+              null,
+            );
 
             // Volta para o Dashboard.
             setTela("dashboard");
           }}
-          // --------------------------------------------------
-          // VOLTAR
-          // --------------------------------------------------
-
           onVoltar={() => {
-            setTela("dashboard");
+            setVeiculoSelecionado(
+              null,
+            );
+
+            setTela(
+              "dashboard",
+            );
           }}
         />
       );
@@ -531,26 +587,24 @@ function App() {
   // ==========================================================
   // ÁREA PROVISÓRIA DO CLIENTE
   // ==========================================================
-  //
-  // Essa parte ainda não foi desenvolvida.
-  // ==========================================================
 
   return (
     <div>
       <h1>VIGTE</h1>
 
-      <h2>Área do cliente</h2>
+      <h2>
+        Área do cliente
+      </h2>
 
-      <p>Área do {tipoUsuario}</p>
+      <p>
+        Área do {tipoUsuario}
+      </p>
     </div>
   );
 }
 
 // ============================================================
 // EXPORTAÇÃO
-// ============================================================
-//
-// Permite que o index.tsx importe o App.
 // ============================================================
 
 export default App;

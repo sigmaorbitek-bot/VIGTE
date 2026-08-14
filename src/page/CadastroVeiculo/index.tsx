@@ -1,7 +1,7 @@
 import "./index.css";
 import { useState } from "react";
 import type { Veiculo } from "../../types/Veiculo";
-
+import { supabase } from "../../lib/supabase";
 
 type CadastroVeiculoProps = {
   lojaId: number;
@@ -26,29 +26,52 @@ export function CadastrarVeiculo({
   const [dataCompra, setDataCompra] = useState("");
   const [observacoes, setObservacoes] = useState("");
 
-function cadastrarVeiculo() {
-  const novoVeiculo: Veiculo = {
-    id: Date.now(),
-    lojaId,
-    tipo,
-    marca,
-    modelo,
-    ano,
-    cor,
-    placa,
-    quilometragem,
-    valorCompra,
-    situacao,
-    dataCompra,
-    observacoes,
-  };
+  async function cadastrarVeiculo() {
+    const { data, error } = await supabase
+      .from("veiculos")
+      .insert({
+        loja_id: lojaId,
+        tipo,
+        marca,
+        modelo,
+        ano,
+        cor,
+        placa,
+        quilometragem,
+        valor_compra: valorCompra,
+        situacao,
+        data_compra: dataCompra,
+        observacoes,
+      })
+      .select()
+      .single();
 
-  console.log("1 - VEÍCULO CRIADO:", novoVeiculo);
+    if (error) {
+      console.error("Erro ao cadastrar veículo:", error);
+      alert("Erro ao cadastrar veículo.");
+      return;
+    }
 
-  onCadastrarVeiculo(novoVeiculo);
+    console.log("Veículo salvo no Supabase:", data);
 
-  console.log("2 - FUNÇÃO onCadastrarVeiculo FOI CHAMADA");
-}
+    const novoVeiculo: Veiculo = {
+      id: data.id,
+      lojaId: data.loja_id,
+      tipo: data.tipo,
+      marca: data.marca,
+      modelo: data.modelo,
+      ano: data.ano,
+      cor: data.cor,
+      placa: data.placa ?? "",
+      quilometragem: data.quilometragem ?? "",
+      valorCompra: String(data.valor_compra),
+      situacao: data.situacao,
+      dataCompra: data.data_compra,
+      observacoes: data.observacoes ?? "",
+    };
+
+    onCadastrarVeiculo(novoVeiculo);
+  }
 
   return (
     <div className="veiculo">

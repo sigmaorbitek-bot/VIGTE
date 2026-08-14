@@ -1,274 +1,428 @@
-/* ==============================
-   RESET DO COMPONENTE
-   ============================== */
+/* ==========================================================
+   VIGTE — CADASTRO DE VEÍCULO
+
+   Paleta oficial:
+   #050B16 → Fundo quase preto / Navy
+   #081426 → Azul-marinho
+   #0B1F3A → Azul escuro
+   #008CFF → Azul elétrico
+   #00C6FF → Ciano
+   #FFFFFF → Branco
+   #AEBBD0 → Texto secundário
+   ========================================================== */
+
+
+/* ==========================================================
+   CONTAINER PRINCIPAL
+   ========================================================== */
 
 .veiculo {
   width: 100%;
   max-width: 900px;
+
+  min-height: 100vh;
+
   margin: 0 auto;
+
   padding: 40px 20px;
+
+  background: transparent;
+
+  color: #FFFFFF;
+
   box-sizing: border-box;
 }
 
-/* ==============================
-   CABEÇALHO
-   ============================== */
 
-.header {
+/* ==========================================================
+   CABEÇALHO
+   ========================================================== */
+
+.veiculo .header {
   margin-bottom: 30px;
 }
 
-.header h1 {
+.veiculo .header h1 {
   margin: 0 0 8px;
+
+  color: #FFFFFF;
+
   font-size: 32px;
-  color: #222;
+  font-weight: 700;
+
+  letter-spacing: -0.5px;
 }
 
-.header p {
+.veiculo .header p {
   margin: 0;
-  color: #666;
-  font-size: 16px;
+
+  color: #AEBBD0;
+
+  font-size: 15px;
+
+  line-height: 1.5;
 }
 
-/* ==============================
-   FORMULÁRIO
-   ============================== */
 
-.form-veiculo {
+/* ==========================================================
+   FORMULÁRIO
+   ========================================================== */
+
+.veiculo .form-veiculo {
+  position: relative;
+
   width: 100%;
-  background: #ffffff;
 
   padding: 30px;
 
-  border-radius: 16px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(11, 31, 58, 0.98),
+      rgba(8, 20, 38, 0.98)
+    );
 
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0, 174, 255, 0.18);
+
+  border-radius: 18px;
+
+  box-shadow:
+    0 20px 45px rgba(0, 0, 0, 0.30);
 
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
 
   gap: 20px;
 
   box-sizing: border-box;
+
+  overflow: hidden;
 }
 
-/* ==============================
-   CAMPOS
-   ============================== */
 
-.campo {
+/* ==========================================================
+   DETALHE SUPERIOR DO FORMULÁRIO
+   ========================================================== */
+
+.veiculo .form-veiculo::before {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 3px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #008CFF,
+      #00C6FF
+    );
+}
+
+
+/* ==========================================================
+   CAMPOS
+   ========================================================== */
+
+.veiculo .campo {
   display: flex;
+
   flex-direction: column;
+
   gap: 8px;
 }
 
-.campo label,
-.campo-observacoes label {
-  font-weight: 600;
-  color: #222;
-}
+.veiculo .campo label,
+.veiculo .campo-observacoes label {
+  color: #FFFFFF;
 
-.campo label span,
-.campo-observacoes label span {
-  font-weight: 400;
-  color: #777;
   font-size: 14px;
+
+  font-weight: 600;
 }
 
-/* ==============================
-   INPUTS E SELECT
-   ============================== */
+.veiculo .campo label span,
+.veiculo .campo-observacoes label span {
+  color: #718198;
 
-.campo input,
-.campo select,
-.campo-observacoes textarea {
+  font-size: 12px;
+
+  font-weight: 400;
+}
+
+
+/* ==========================================================
+   INPUTS E SELECT
+   ========================================================== */
+
+.veiculo .campo input,
+.veiculo .campo select,
+.veiculo .campo-observacoes textarea {
   width: 100%;
+
+  min-height: 46px;
+
+  padding: 0 14px;
+
   box-sizing: border-box;
 
-  padding: 12px 14px;
+  border: 1px solid #243752;
 
-  border: 1px solid #d5d5d5;
-  border-radius: 8px;
-
-  font-size: 15px;
-  font-family: inherit;
+  border-radius: 10px;
 
   outline: none;
 
-  background: #ffffff;
+  background: #050B16;
+
+  color: #FFFFFF;
+
+  font-size: 15px;
+
+  font-family: inherit;
 
   transition:
     border-color 0.2s ease,
+    background 0.2s ease,
     box-shadow 0.2s ease;
 }
 
-/* ==============================
+
+/* ==========================================================
    PLACEHOLDER
-   ============================== */
+   ========================================================== */
 
-.campo input::placeholder,
-.campo-observacoes textarea::placeholder {
-  color: #999;
+.veiculo .campo input::placeholder,
+.veiculo .campo-observacoes textarea::placeholder {
+  color: #66758C;
 }
 
-/* ==============================
+
+/* ==========================================================
    FOCO
-   ============================== */
+   ========================================================== */
 
-.campo input:focus,
-.campo select:focus,
-.campo-observacoes textarea:focus {
-  border-color: #1d4ed8;
+.veiculo .campo input:focus,
+.veiculo .campo select:focus,
+.veiculo .campo-observacoes textarea:focus {
+  background: #081426;
 
-  box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.1);
+  border-color: #008CFF;
+
+  box-shadow:
+    0 0 0 3px rgba(0, 140, 255, 0.12);
 }
 
-/* ==============================
-   OBSERVAÇÕES
-   ============================== */
 
-.campo-observacoes {
+/* ==========================================================
+   SELECT
+   ========================================================== */
+
+.veiculo .campo select {
+  cursor: pointer;
+}
+
+
+/* ==========================================================
+   CAMPO DE OBSERVAÇÕES
+   ========================================================== */
+
+.veiculo .campo-observacoes {
   grid-column: 1 / -1;
 
   display: flex;
+
   flex-direction: column;
 
   gap: 8px;
 }
 
-.campo-observacoes textarea {
+.veiculo .campo-observacoes textarea {
   min-height: 120px;
 
+  padding: 12px 14px;
+
   resize: vertical;
+
+  line-height: 1.5;
 }
 
-/* ==============================
-   AÇÕES
-   ============================== */
 
-.acoes {
+/* ==========================================================
+   AÇÕES
+   ========================================================== */
+
+.veiculo .acoes {
   grid-column: 1 / -1;
 
   display: flex;
 
   gap: 12px;
 
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
-/* ==============================
+
+/* ==========================================================
    BOTÕES
-   ============================== */
+   ========================================================== */
 
-.btn-cadastrar,
-.btn-voltar {
-  border: none;
+.veiculo .btn-cadastrar,
+.veiculo .btn-voltar {
+  min-height: 48px;
 
-  border-radius: 8px;
+  padding: 0 22px;
 
-  padding: 13px 22px;
+  border-radius: 10px;
 
   font-size: 15px;
 
-  font-weight: 600;
+  font-weight: 700;
 
   cursor: pointer;
 
   transition:
+    transform 0.2s ease,
+    filter 0.2s ease,
     background 0.2s ease,
-    transform 0.1s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-/* ==============================
+
+/* ==========================================================
    BOTÃO CADASTRAR
-   ============================== */
+   ========================================================== */
 
-.btn-cadastrar {
-  background: #1d4ed8;
+.veiculo .btn-cadastrar {
+  flex: 1;
 
-  color: #ffffff;
+  border: 1px solid rgba(0, 198, 255, 0.30);
+
+  background:
+    linear-gradient(
+      135deg,
+      #008CFF,
+      #00C6FF
+    );
+
+  color: #FFFFFF;
+
+  box-shadow:
+    0 8px 20px rgba(0, 140, 255, 0.18);
 }
 
-.btn-cadastrar:hover {
-  background: #1741b5;
+.veiculo .btn-cadastrar:hover {
+  transform: translateY(-2px);
+
+  filter: brightness(1.08);
+
+  box-shadow:
+    0 12px 26px rgba(0, 198, 255, 0.24);
 }
 
-.btn-cadastrar:active {
-  transform: scale(0.98);
+.veiculo .btn-cadastrar:active {
+  transform: translateY(0);
 }
 
-/* ==============================
+
+/* ==========================================================
    BOTÃO VOLTAR
-   ============================== */
+   ========================================================== */
 
-.btn-voltar {
-  background: #eeeeee;
+.veiculo .btn-voltar {
+  min-width: 120px;
 
-  color: #222222;
+  border: 1px solid #243752;
+
+  background: #081426;
+
+  color: #AEBBD0;
 }
 
-.btn-voltar:hover {
-  background: #dddddd;
+.veiculo .btn-voltar:hover {
+  background: #0B1F3A;
+
+  border-color: #008CFF;
+
+  color: #FFFFFF;
 }
 
-.btn-voltar:active {
-  transform: scale(0.98);
-}
 
-/* ==============================
-   RESPONSIVIDADE
-   ============================== */
+/* ==========================================================
+   RESPONSIVIDADE — TABLET
+   ========================================================== */
 
 @media (max-width: 700px) {
   .veiculo {
-    padding: 25px 15px;
+    padding: 28px 15px;
   }
 
-  .header h1 {
-    font-size: 26px;
+  .veiculo .header h1 {
+    font-size: 27px;
   }
 
-  .form-veiculo {
+  .veiculo .form-veiculo {
     grid-template-columns: 1fr;
 
-    padding: 20px;
+    padding: 22px 20px;
+
+    border-radius: 16px;
   }
 
-  .campo-observacoes,
-  .acoes {
+  .veiculo .campo-observacoes,
+  .veiculo .acoes {
     grid-column: 1;
   }
 
-  .acoes {
+  .veiculo .acoes {
     flex-direction: column;
   }
 
-  .btn-cadastrar,
-  .btn-voltar {
+  .veiculo .btn-cadastrar,
+  .veiculo .btn-voltar {
     width: 100%;
+  }
+
+  .veiculo .btn-voltar {
+    min-width: 0;
   }
 }
 
-/* ==============================
-   TELAS MUITO PEQUENAS
-   ============================== */
+
+/* ==========================================================
+   RESPONSIVIDADE — CELULAR PEQUENO
+   ========================================================== */
 
 @media (max-width: 400px) {
   .veiculo {
-    padding: 20px 10px;
+    padding: 22px 10px;
   }
 
-  .form-veiculo {
-    padding: 16px;
-
-    border-radius: 12px;
+  .veiculo .header h1 {
+    font-size: 24px;
   }
 
-  .header h1 {
-    font-size: 23px;
+  .veiculo .header p {
+    font-size: 14px;
   }
 
-  .header p {
+  .veiculo .form-veiculo {
+    padding: 18px 16px;
+
+    border-radius: 14px;
+
+    gap: 16px;
+  }
+
+  .veiculo .campo input,
+  .veiculo .campo select,
+  .veiculo .campo-observacoes textarea {
     font-size: 14px;
   }
 }
